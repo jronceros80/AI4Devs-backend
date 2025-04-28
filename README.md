@@ -62,7 +62,7 @@ npm install
 ```
 cd backend
 npm run build
-````
+```
 4. Start the backend server:
 ```
 cd backend
@@ -111,7 +111,7 @@ docker-compose down
 ```
 To generate the database using Prisma, follow these steps:
 
-1. Make sure that the .env file in the root directory of the backend contains the DATABASE_URL variable with the correct connection string to your PostgreSQL database. If it doesn’t work, try replacing the full URL directly in schema.prisma, in the url variable.
+1. Make sure that the .env file in the root directory of the backend contains the DATABASE_URL variable with the correct connection string to your PostgreSQL database. If it doesn't work, try replacing the full URL directly in schema.prisma, in the url variable.
 
 2. Open a terminal and navigate to the backend directory where the schema.prisma and seed.ts files are located.
 
@@ -222,7 +222,7 @@ npm install
 ```
 cd backend
 npm run build
-````
+```
 4. Inicia el servidor backend:
 ```
 cd backend
@@ -313,4 +313,121 @@ POST http://localhost:3010/candidates
     }
 }
 ```
+
+# AI4Devs - Backend
+
+## Descripción
+Backend para la aplicación AI4Devs, desarrollado con Node.js, Express y Prisma. Este proyecto implementa un sistema de gestión de candidatos y posiciones para procesos de selección.
+
+## Estructura del Proyecto
+```
+backend/
+├── src/
+│   ├── application/
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   └── repositories/
+│   ├── domain/
+│   │   ├── models/
+│   │   └── interfaces/
+│   ├── infrastructure/
+│   │   ├── database/
+│   │   └── config/
+│   └── index.ts
+├── prisma/
+│   └── schema.prisma
+├── package.json
+└── README.md
+```
+
+## Requisitos Previos
+- Node.js (v22.14.0 o superior)
+- PostgreSQL
+- npm
+
+## Instalación
+1. Clonar el repositorio
+2. Instalar dependencias:
+```bash
+npm install
+```
+
+3. Configurar la base de datos:
+- Crear una base de datos PostgreSQL
+- Configurar las variables de entorno en `.env`:
+```
+DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/LTIdb"
+```
+
+4. Inicializar la base de datos:
+```bash
+npx prisma migrate dev
+```
+
+5. Generar el cliente Prisma:
+```bash
+npx prisma generate
+```
+
+## Endpoints Disponibles
+
+### GET /positions/:id/candidates
+Obtiene todos los candidatos asociados a una posición específica.
+
+**Ejemplo de uso:**
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3010/positions/1/candidates" -Headers @{"Content-Type"="application/json"} -Method GET
+```
+
+**Respuesta:**
+```json
+[
+  {
+    "candidateId": 1,
+    "fullName": "Nombre Apellido",
+    "currentInterviewStep": {
+      "id": 1,
+      "name": "Entrevista Inicial"
+    },
+    "averageScore": 85.5
+  }
+]
+```
+
+### PUT /candidates/:id/stage
+Actualiza la etapa de un candidato en el proceso de selección.
+
+**Ejemplo de uso:**
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3010/candidates/1/stage" -Headers @{"Content-Type"="application/json"} -Method PUT -Body '{"stageId": 2}'
+```
+
+**Respuesta:**
+```json
+{
+  "message": "Etapa actualizada correctamente"
+}
+```
+
+## Ejecución
+Para iniciar el servidor:
+```bash
+npm start
+```
+
+El servidor se ejecutará en `http://localhost:3010`
+
+## Tecnologías Utilizadas
+- Node.js
+- Express
+- Prisma
+- PostgreSQL
+- TypeScript
+
+## Contribución
+1. Fork el proyecto
+2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abrir un Pull Request
 

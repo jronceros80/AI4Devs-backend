@@ -98,7 +98,7 @@ export class Candidate {
                 });
             } catch (error: any) {
                 console.log(error);
-                if (error instanceof Prisma.PrismaClientInitializationError) {
+                if (error.constructor && error.constructor.name === 'PrismaClientInitializationError') {
                     // Database connection error
                     throw new Error('No se pudo conectar con la base de datos. Por favor, asegúrese de que el servidor de base de datos esté en ejecución.');
                 } else if (error.code === 'P2025') {
@@ -116,7 +116,7 @@ export class Candidate {
                 });
                 return result;
             } catch (error: any) {
-                if (error instanceof Prisma.PrismaClientInitializationError) {
+                if (error.constructor && error.constructor.name === 'PrismaClientInitializationError') {
                     // Database connection error
                     throw new Error('No se pudo conectar con la base de datos. Por favor, asegúrese de que el servidor de base de datos esté en ejecución.');
                 } else {
